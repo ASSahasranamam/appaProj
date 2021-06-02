@@ -43,7 +43,7 @@ router.post('/getMatchingAnswer', function(req, res, next) {
         console.log(err)
       }
       console.log("THIS IS COUNT", doc2)
-          if( req.body["number"]+1 > doc2) {
+          if( req.body["number"]+1 >= doc2) {
            try {
              database.collection("runningNumber").updateOne({number: req.body["number"]}, { $set:
              {
@@ -52,6 +52,13 @@ router.post('/getMatchingAnswer', function(req, res, next) {
            })
            } catch (e) {
              console.log(e)
+           } finally {
+             database.collection("runningNumber").find().toArray(function (error, finalVar) {
+               database.collection("answer").find({"idkey": finalVar.number  }).toArray(function (error, finalVar2) {
+                console.log(finalVar2)
+               })
+
+             })
            }
 
           } else {
@@ -59,6 +66,10 @@ router.post('/getMatchingAnswer', function(req, res, next) {
               database.collection("runningNumber").updateOne({number:req.body["number"] }, { $set: {number: req.body["number"]+1}})
             } catch (e) {
               console.log(e)
+            } finally {
+              database.collection("runningNumber").find().toArray(function (error, finalVar) {
+                console.log(finalVar)
+              })
             }
           }
     //
@@ -71,8 +82,10 @@ router.post('/getMatchingAnswer', function(req, res, next) {
     //Another Solution
 
  //Working but buggy
- res.send(doc.content)
+ // res.send(doc.content)
 
+    //Better response?
+    res.send(doc)
   })
 
 

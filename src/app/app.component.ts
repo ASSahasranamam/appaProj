@@ -35,15 +35,16 @@ export class AppComponent implements OnInit{
     });
 
   }
-  public getMatchingAnswer(runningNumber: number){
-    this.http.post(`http://localhost:3000/getMatchingAnswer`, {"number":runningNumber}).subscribe(result => {
-      console.log(this.runningNumber);
-      console.log(result);
-    });
+  // public getMatchingAnswer(runningNumber: number){
+  //   this.http.post(`http://localhost:3000/getMatchingAnswer`, {"number":runningNumber}).subscribe(result => {
+  //     console.log(this.runningNumber);
+  //     console.log(result);
+  //   });
 
-  //update
+  // }
+  // update
 
-  }
+
 // runningNumber: any = (data as any).default;
 
   constructor(public  http: HttpClient) {
@@ -58,8 +59,13 @@ export class AppComponent implements OnInit{
 
   public getLatestID() {
     this.http.post(`http://localhost:3000/`, {}).subscribe( data => {
+      // debugger;
+      let arr =  [];
 
-      this.runningNumber = data;
+      arr = JSON.parse(JSON.stringify(data));
+      this.runningNumber = ( arr.length != 0 && arr[0].number != undefined ) ? arr[0].number : 1;
+      // this.runningNumber = arr[0].number;
+
       console.log("DATA-RUNNINGNUMBER :  ", this.runningNumber);
 
 
@@ -87,7 +93,7 @@ export class AppComponent implements OnInit{
 
 
   public onSubmit() {
-
+    this.getLatestID();
     console.log("USERID : " +  this.userid);
     console.log("sessionID : " +  this.sessionid);
     this.date = new Date();
@@ -102,20 +108,25 @@ export class AppComponent implements OnInit{
 
 
     this.http.post(`http://localhost:3000/getMatchingAnswer`, {number: this.runningNumber}).subscribe(data => {
+      // debugger;
       console.log(data);
-      this.runningNumber = data;
-      console.log(this.runningNumber);
+
       // console.log(JSON.parse(data))
       console.log(this.userid);
-      let jsonTest = (data);
+      let jsonTest = JSON.parse(JSON.stringify(data));
       console.log(jsonTest);
+      console.log(jsonTest["content"]);
 
       // this.result = this.result.replace(" .", (this.userid ));
       // console.log(this.result);
-      this.resultDisplay = String(this.result + this.userid +  " ." +  JSON.stringify(data).replace('"',''));
+      this.resultDisplay = String(this.result + this.userid +  " ." +  JSON.stringify(jsonTest["content"]).replace('"', '').replace('"' , '' ));
+
     });
-    this.getLatestID();
     // this.getMatchingAnswer(this.runningNumber);
+    console.log("this is post ")
+    this.runningNumber++;
+    console.log(this.runningNumber);
+    console.log(this.getLatestID());
 
   //   this.getJSON().subscribe(data => {
   //   console.log(data.id);
