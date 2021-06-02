@@ -1,0 +1,24 @@
+
+<div class="container">
+
+
+</div>
+  <label> Enter Name</label>
+  <input type="text" class="form-control" placeholder="Username" [(ngModel)]="userid" >
+  <br>
+  <label> Enter Session ID</label>
+  <input type="text" class="form-control" placeholder="Session ID"  [(ngModel)]="sessionid">
+
+  <br>
+
+  <label> Is Eye Clear</label> <br>
+  <input [(ngModel)]="eyeclear" type="radio" name="choice" value="yes"> Yes
+  <input [(ngModel)]="eyeclear" type="radio" name="choice" value="no"> No
+  <br>
+  <button class = "btn btn-primary" (click)="onSubmit()"> Okay</button>
+  <br>
+
+  <label> RESULT </label>
+  <input type="text" class="form-control" placeholder="RESULT" [(ngModel)]="resultDisplay" >
+
+  <router-outlet></router-outlet>
