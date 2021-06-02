@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
   date : any;
   time : string = "";
   runningNumber: any;
-  result: string = "* Name : .";
+  result: string = "* Name : ";
   resultDisplay: any;
   ngOnInit() {
 
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit{
       // console.log(data);
       this.runningNumber = data;
       // console.log(this.runningNumber[0].number);
-      this.runningNumber= this.runningNumber[0].number;
+      this.runningNumber = this.runningNumber[0].number;
       console.log(this.runningNumber);
     });
 
@@ -40,6 +40,9 @@ export class AppComponent implements OnInit{
       console.log(this.runningNumber);
       console.log(result);
     });
+
+  //update
+
   }
 // runningNumber: any = (data as any).default;
 
@@ -104,12 +107,14 @@ export class AppComponent implements OnInit{
       console.log(this.runningNumber);
       // console.log(JSON.parse(data))
       console.log(this.userid);
+      let jsonTest = (data);
+      console.log(jsonTest);
+
       // this.result = this.result.replace(" .", (this.userid ));
-      console.log(this.result)
-      this.resultDisplay = String(this.result + this.userid +  " ." +  JSON.stringify(data));
+      // console.log(this.result);
+      this.resultDisplay = String(this.result + this.userid +  " ." +  JSON.stringify(data).replace('"',''));
     });
-
-
+    this.getLatestID();
     // this.getMatchingAnswer(this.runningNumber);
 
   //   this.getJSON().subscribe(data => {

@@ -36,9 +36,46 @@ router.post('/getMatchingAnswer', function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     if (err) throw err;
     console.log(doc)
-    res.send(doc)
+
+    // Update The Running Number
+    database.collection("answer").countDocuments( {} , function(err, doc2) {
+      if (err) {
+        console.log(err)
+      }
+      console.log("THIS IS COUNT", doc2)
+          if( req.body["number"]+1 > doc2) {
+           try {
+             database.collection("runningNumber").updateOne({number: req.body["number"]}, { $set:
+             {
+               number: 1
+             }
+           })
+           } catch (e) {
+             console.log(e)
+           }
+
+          } else {
+            try {
+              database.collection("runningNumber").updateOne({number:req.body["number"] }, { $set: {number: req.body["number"]+1}})
+            } catch (e) {
+              console.log(e)
+            }
+          }
+    //
+        })
+
+
+
+    // Send the Response.
+
+    //Another Solution
+
+ //Working but buggy
+ res.send(doc.content)
 
   })
+
+
 
 
 });
