@@ -26,7 +26,7 @@ export class AppComponent implements OnInit{
   resultDisplay: any;
   ngOnInit() {
 
-    this.http.post(`http://localhost:3000/`, {}).subscribe(data => {
+    this.http.post(`http://ec2-54-174-209-78.compute-1.amazonaws.com:3000/`, {}).subscribe(data => {
       // console.log(data);
       this.runningNumber = data;
       // console.log(this.runningNumber[0].number);
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit{
 
   }
   // public getMatchingAnswer(runningNumber: number){
-  //   this.http.post(`http://localhost:3000/getMatchingAnswer`, {"number":runningNumber}).subscribe(result => {
+  //   this.http.post(`http://ec2-54-174-209-78.compute-1.amazonaws.com:3000/getMatchingAnswer`, {"number":runningNumber}).subscribe(result => {
   //     console.log(this.runningNumber);
   //     console.log(result);
   //   });
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit{
   // }
 
   public getLatestID() {
-    this.http.post(`http://localhost:3000/`, {}).subscribe( data => {
+    this.http.post(`http://ec2-54-174-209-78.compute-1.amazonaws.com:3000/`, {}).subscribe( data => {
       // debugger;
       let arr =  [];
 
@@ -101,13 +101,13 @@ export class AppComponent implements OnInit{
     console.log(this.eyeclear);
     // this.getLatestID();
     //
-    // this.postData('http://localhost:3000/getMatchingAnswer', { number: this.runningNumber})
+    // this.postData('http://ec2-54-174-209-78.compute-1.amazonaws.com:3000/getMatchingAnswer', { number: this.runningNumber})
     //   .then(data => {
     //     console.log(data); // JSON data parsed by `data.json()` call
     //   });
 
 
-    this.http.post(`http://localhost:3000/getMatchingAnswer`, {number: this.runningNumber}).subscribe(data => {
+    this.http.post(`http://ec2-54-174-209-78.compute-1.amazonaws.com:3000/getMatchingAnswer`, {number: this.runningNumber}).subscribe(data => {
       // debugger;
       console.log(data);
 
