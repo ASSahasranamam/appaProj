@@ -24,6 +24,9 @@ export class AppComponent implements OnInit{
   runningNumber: any;
   result: string = "* Name : ";
   resultDisplay: any;
+
+
+
   ngOnInit() {
 
     this.http.post(`http://ec2-54-174-209-78.compute-1.amazonaws.com:3000/`, {}).subscribe(data => {
@@ -106,22 +109,27 @@ export class AppComponent implements OnInit{
     //     console.log(data); // JSON data parsed by `data.json()` call
     //   });
 
+    if (this.eyeclear == "no"){
+     this.resultDisplay = "No Result"
+    } else {
 
-    this.http.post(`http://ec2-54-174-209-78.compute-1.amazonaws.com:3000/getMatchingAnswer`, {number: this.runningNumber}).subscribe(data => {
-      // debugger;
-      console.log(data);
 
-      // console.log(JSON.parse(data))
-      console.log(this.userid);
-      let jsonTest = JSON.parse(JSON.stringify(data));
-      console.log(jsonTest);
-      console.log(jsonTest["content"]);
+      this.http.post(`http://ec2-54-174-209-78.compute-1.amazonaws.com:3000/getMatchingAnswer`, {number: this.runningNumber}).subscribe(data => {
+        // debugger;
+        console.log(data);
 
-      // this.result = this.result.replace(" .", (this.userid ));
-      // console.log(this.result);
-      this.resultDisplay = String(this.result + this.userid +  " ." +  JSON.stringify(jsonTest["content"]).replace('"', '').replace('"' , '' ));
+        // console.log(JSON.parse(data))
+        console.log(this.userid);
+        let jsonTest = JSON.parse(JSON.stringify(data));
+        console.log(jsonTest);
+        console.log(jsonTest['content']);
 
-    });
+        // this.result = this.result.replace(" .", (this.userid ));
+        // console.log(this.result);
+        this.resultDisplay = String(this.result + this.userid + ' .' + JSON.stringify(jsonTest['content']).replace('"', '').replace('"', ''));
+
+      });
+    }
     // this.getMatchingAnswer(this.runningNumber);
     console.log("this is post ")
     this.runningNumber++;
